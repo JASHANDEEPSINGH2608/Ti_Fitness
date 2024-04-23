@@ -49,16 +49,16 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a className="font-bold">GYM</a>
+              <a className="font-bold" onClick={ () => navigate("/home")}>GYM</a>
             </li>
             <li>
-              <a className="font-bold">GUIDE</a>
+              <a className="font-bold" onClick={ () => navigate("/guide")}>GUIDE</a>
             </li>
             <li>
-              <a className="font-bold">ALPHA</a>
+              <a className="font-bold" onClick={ () => navigate("/alpha")}>ALPHA</a>
             </li>
             <li>
-              <a className="font-bold">ATTENDANCE</a>
+              <a className="font-bold" onClick={ () => navigate("/attendance")}>ATTENDANCE</a>
             </li>
           </ul>
         </div>
