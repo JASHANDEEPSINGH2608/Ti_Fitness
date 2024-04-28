@@ -31,16 +31,16 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a>Item 1</a>
+                <a onClick={ () => navigate("/home")}>GYM</a>
               </li>
               <li>
-                <a>Item 2</a>
+                <a onClick={ () => navigate("/guide")}>GUIDE</a>
               </li>
               <li>
-                <a>Item 3</a>
+                <a onClick={ () => navigate("/alpha")}>ALPHA</a>
               </li>
               <li>
-                <a>Item 4</a>
+                <a onClick={ () => navigate("/attendance")}>ATTENDANCE</a>
               </li>
             </ul>
           </div>

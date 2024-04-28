@@ -7,6 +7,7 @@ import Home from "./pages/Home/Home.jsx";
 import Guide from "./pages/guide/Guide.jsx";
 import Alpha from "./pages/alpha/alpha.jsx";
 import Attendance from "./pages/attendance/attendance.jsx";
+import Admin from "./pages/Admin/Admin.jsx";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/guide" element={<Guide/>}/>
         <Route path="/alpha" element={<Alpha/>}/>
         <Route path="/attendance" element={<Attendance/>}/>
+        <Route path="/admin" element={<Admin/>}/>
       </Routes>
   );
 };

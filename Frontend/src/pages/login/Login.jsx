@@ -1,29 +1,52 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-
+import { toast, Toaster } from "react-hot-toast";
 const Login = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+
+  // State for input fields
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/user/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      console.log(response);
+      const data = await response.json();
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleLogin = () => {
-    // Here you can perform login logic using username and password
-    // For example, you can send a request to your backend to validate the credentials
-    // For now, let's just log the username and password to the console
-    console.log("Username:", username);
-    console.log("Password:", password);
+      if (response.ok) {
+        // Login successful
+        console.log("Login successful!");
+        // Save the token in local storage or cookies
+        // localStorage.setItem("token", data.token);
+        // Redirect to dashboard upon successful login
+        navigate("/home");
+      } else {
+        // Login failed
+        console.error("Login failed:", data.error || response.statusText);
+        toast.error(data.error || response.statusText);
+        // You might want to display an error message to the user
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+      toast.error("Error logging in:", error.message)
+      // Handle any other errors that might occur during login
+      // You might want to display an error message to the user
+    }
   };
 
   return (
     <>
+    <div><Toaster/></div>
       <div className="p-8 h-screen flex items-center justify-center bg-black">
         <div className="flex justify-center flex-col items-center lg:flex-row lg:items-center ">
           <div className="w-3/5 h-3/5">
@@ -31,7 +54,7 @@ const Login = () => {
           </div>
           <div className="flex flex-col gap-2 w-1/4 justify-center">
             <h2 className="text-6xl font-bold">Login</h2>
-            <h6 className="text-lg pb-2">Glad you're back</h6>
+            <h6 className="text-lg pb-2">Welcome back!</h6>
             <div className=" bg-slate-800/45 rounded-xl flex flex-col gap-2 items-center justify-center h-3/4 py-8">
               <label className="input input-bordered flex items-center gap-2">
                 <svg
@@ -45,9 +68,9 @@ const Login = () => {
                 <input
                   type="text"
                   className="grow w-48"
-                  placeholder="Username"
-                  value={username}
-                  onChange={handleUsernameChange}
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </label>
               <label className="input input-bordered flex items-center gap-2">
@@ -68,7 +91,7 @@ const Login = () => {
                   className="grow w-48"
                   placeholder="Password"
                   value={password}
-                  onChange={handlePasswordChange}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
               <button className="btn btn-wide" onClick={handleLogin}>
@@ -82,7 +105,7 @@ const Login = () => {
                     navigate("/signup");
                   }}
                 >
-                  New User?
+                  Signup
                 </button>
                 <button
                   className="btn btn-primary"

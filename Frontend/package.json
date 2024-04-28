@@ -9,11 +9,24 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:3000",
+      "changeOrigin": true
+    }
+  },
   "dependencies": {
+    "@google/generative-ai": "^0.8.0",
+    "axios": "^1.6.8",
+    "ldrs": "^1.0.1",
+    "pdfjs-dist": "^4.1.392",
     "react": "^18.2.0",
+    "react-ctrl-f": "^0.0.4",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^5.0.1",
-    "react-router-dom": "^6.22.3"
+    "react-router-dom": "^6.22.3",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

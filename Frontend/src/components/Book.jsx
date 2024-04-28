@@ -7,11 +7,10 @@ const Book = () => {
       <div className="flex justify-between content-center flex-wrap	">
         <h2 className="font-bold text-white text-xl">Guide</h2>
         <ul className="inline-flex gap-12 items-center justify-center">
-          <li>one</li>
-          <li>two</li>
-          <li>three</li>
-          <li>four</li>
-          <li>five</li>
+          <li>Definitions</li>
+          <li>Three exercise Movements</li>
+          <li>Programs</li>
+          <li>Progress</li>
         </ul>
         <div>
           <form action="submit">

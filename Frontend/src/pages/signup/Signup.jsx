@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { toast, Toaster } from "react-hot-toast";
+import validator from "validator";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -9,16 +11,67 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignup = () => {
-    // Handle signup logic here, using email, username, and password state
-    // For now, let's just log the values
-    console.log("Email:", email);
-    console.log("Username:", username);
-    console.log("Password:", password);
+  const handleSignup = async () => {
+    try {
+      if (!validator.isEmail(email)) {
+        toast.error("Please enter a valid email address");
+        return;
+      }
+
+      if (!email.endsWith("@thapar.edu")) {
+        toast.error(
+          "Signup allowed only from Thapar Institute email addresses"
+        );
+        return;
+      }
+      if (password.length < 6) { 
+        toast.error("Password must be at least 6 characters long"); 
+        return; 
+      }
+      const response = await fetch("http://localhost:3000/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          name: username,
+          password: password,
+        }),
+      });
+      console.log(response);
+      if (!response.bodyUsed && response.status === 201) {
+        // Signup successful
+        console.log("Signup successful!");
+        toast.success("Signup successful!");
+        navigate("/"); // Redirect to dashboard upon successful signup
+        return;
+      }
+      const data = await response.json();
+
+      if (response.ok) {
+        // Signup successful
+        console.log("Signup successful!");
+        navigate("/"); // Redirect to dashboard upon successful signup
+      } else {
+        // Signup failed
+        console.error("Signup failed:", data.error || response.statusText);
+        toast.error("Signup failed:", data.error || response.statusText);
+        // You might want to display an error message to the user
+      }
+    } catch (error) {
+      console.error("Error signing up:", error);
+      toast.error("Error signing up:", error.message);
+      // Handle any other errors that might occur during signup
+      // You might want to display an error message to the user
+    }
   };
 
   return (
     <>
+      <div>
+        <Toaster />
+      </div>
       <div className="p-8 h-screen flex items-center justify-center bg-black">
         <div className="flex justify-center flex-col items-center lg:flex-row lg:items-center ">
           <div className="w-3/5 h-3/5">
