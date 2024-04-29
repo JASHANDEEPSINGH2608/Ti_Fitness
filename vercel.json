@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "Frontend",
+      "use": "@vercel/vite",
+      "buildCommand": "npm run dev" 
+    },
+    {
+      "src": "Backend", 
+      "use": "@vercel/node", 
+      "buildCommand": "npm start" 
+    }
+  ]
+}
